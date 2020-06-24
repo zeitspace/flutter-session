@@ -58,6 +58,35 @@ class FriendWidget extends StatelessWidget {
   final friend;
 
   Widget build(BuildContext context) {
-    return ListTile(title: Text(friend['name']));
+    return Container(
+      padding: EdgeInsets.all(8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(friend['name'], style: Theme.of(context).textTheme.headline6),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: friend['todos'].length,
+            itemBuilder: (context, index) {
+              var todo = friend['todos'][index];
+              return Row(
+                children: [
+                  Icon(Icons.fiber_manual_record, size: 6),
+                  SizedBox(width: 6),
+                  Text(
+                    todo['name'],
+                    style: TextStyle(
+                      decoration: todo["isDone"]
+                          ? TextDecoration.lineThrough
+                          : TextDecoration.none,
+                    ),
+                  ),
+                ],
+              );
+            },
+          )
+        ],
+      ),
+    );
   }
 }
