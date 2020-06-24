@@ -71,7 +71,7 @@ class FriendWidget extends StatelessWidget {
               var todo = friend['todos'][index];
               return Row(
                 children: [
-                  Icon(Icons.fiber_manual_record, size: 6),
+                  Icon(Icons.lens, size: 6),
                   SizedBox(width: 6),
                   Text(
                     todo['name'],
