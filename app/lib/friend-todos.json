@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Sarah",
+    "todos": [
+      { "name": "Learn dart", "isDone": true },
+      { "name": "Get oil changed", "isDone": false },
+      { "name": "Get milk", "isDone": true }
+    ]
+  },
+  {
+    "name": "Brandon",
+    "todos": [
+      { "name": "Make dinner", "isDone": false },
+      { "name": "Do laundry", "isDone": true }
+    ]
+  }
+]
