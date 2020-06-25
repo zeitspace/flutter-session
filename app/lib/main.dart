@@ -58,16 +58,28 @@ class _MyTodosState extends State<MyTodos> {
 
   bool _showCompleted = true;
 
-  void toggleDone(bool newVal, int index) {
+  void toggleDone(BuildContext context, bool newVal, int index) {
     setState(() {
       if (newVal) {
         String item = _todos[index];
         _todos.removeAt(index);
         _completeTodos.add(item);
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Completed \"$item\""),
+            duration: Duration(seconds: 1),
+          ),
+        );
       } else {
         String item = _completeTodos[index];
         _completeTodos.removeAt(index);
         _todos.add(item);
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: Text("Set \"$item\" to todo"),
+            duration: Duration(seconds: 1),
+          ),
+        );
       }
     });
   }
@@ -194,7 +206,7 @@ class TodoTile extends StatelessWidget {
           Checkbox(
             activeColor: Theme.of(context).primaryColor,
             value: isDone,
-            onChanged: (bool newVal) => toggle(newVal, index),
+            onChanged: (bool newVal) => toggle(context, newVal, index),
           ),
           Text(
             name,
