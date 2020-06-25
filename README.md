@@ -39,47 +39,62 @@ TODO: fill in instructions for completing the Hello World app
 
 Let's learn about Flutter by building a to do app.
 
-### Step 1: Show a list
+### Step 1: Build layout
 
 Checkpoint branch: `step1`
 
-TODO: add content
+* Build scaffold
+* Add top app bar
+* Add bottom tab bar
+* Add placeholder content for each page
 
-### Step 2: Add a new to do
+### Step 2: Show a list
 
 Checkpoint branch: `step2`
 
-TODO: add content
+* Store the todos in a data structure
+* For now, prefill with some hardcoded todos
+* Build the Todo item list without checkbox (not completed ones)
 
-### Step 3: Delete a to do
+### Step 3: Add a new to do
 
 Checkpoint branch: `step3`
 
-TODO: add content
+* Add "add todo" button in app bar
+* Build dialog
+* Add item to list
 
 ### Step 4: Mark as done
 
 Checkpoint branch: `step4`
 
-TODO: add content
+* Add checkbox
+* Add Completed list below
+* When checked -> move to completed
+* When unchecked -> move to active todos list
 
-### Step 5: Show / hide completed to dos
+### Step 5: Show snackbar feedback
 
 Checkpoint branch: `step5`
 
-TODO: add content
+* Show a message using the snackbar component
+* Feedback for item marked as done
+* Feedback also for item moved back to active "marked as todo"
 
-### Step 6: Color code to do items
+### Step 6: Show / hide completed to dos
 
 Checkpoint branch: `step6`
 
-TODO: add content
+* Add adaptive switch (changes iOS / Android style)
+* Show / hide the completed items list when toggled
 
-### Step 7: Load color options from the web
+### Step 7: Get data through HTTP
 
 Checkpoint branch: `step7`
 
-TODO: add content
+* Add http package to Flutter
+* Use it to request and wait for JSON data
+* Build friends todos page (static)
 
 ### Step 8: Done
 
