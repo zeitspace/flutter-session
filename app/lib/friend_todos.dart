@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
-import './my_drawer.dart';
 
 class FriendTodos extends StatefulWidget {
   FriendTodos({@required this.title});
@@ -28,7 +27,6 @@ class _FriendTodosState extends State<FriendTodos> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      drawer: MyDrawer(),
       body: FutureBuilder(
         future: _getFriendData(),
         builder: (context, snapshot) {
@@ -57,6 +55,29 @@ class FriendWidget extends StatelessWidget {
 
   final friend;
 
+  _todoList() {
+    List<Widget> children = [];
+
+    for (int i = 0; i < friend['todos'].length; i++) {
+      var todo = friend['todos'][i];
+      children.add(Row(
+        children: [
+          Icon(Icons.lens, size: 6),
+          SizedBox(width: 6),
+          Text(
+            todo['name'],
+            style: TextStyle(
+              decoration: todo["isDone"]
+                  ? TextDecoration.lineThrough
+                  : TextDecoration.none,
+            ),
+          ),
+        ],
+      ));
+    }
+    return children;
+  }
+
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
@@ -64,27 +85,7 @@ class FriendWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(friend['name'], style: Theme.of(context).textTheme.headline6),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: friend['todos'].length,
-            itemBuilder: (context, index) {
-              var todo = friend['todos'][index];
-              return Row(
-                children: [
-                  Icon(Icons.lens, size: 6),
-                  SizedBox(width: 6),
-                  Text(
-                    todo['name'],
-                    style: TextStyle(
-                      decoration: todo["isDone"]
-                          ? TextDecoration.lineThrough
-                          : TextDecoration.none,
-                    ),
-                  ),
-                ],
-              );
-            },
-          )
+          Column(children: _todoList()),
         ],
       ),
     );

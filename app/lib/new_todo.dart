@@ -9,18 +9,7 @@ class AddTodoDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            child: Text(
-              "Add a new Todo",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-            color: Theme.of(context).primaryColor,
-            width: double.infinity,
-            padding: EdgeInsets.all(18),
-          ),
+          DialogHeader(title: "Add a new todo"),
           Container(
             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
             child: Column(
@@ -60,6 +49,27 @@ class AddTodoDialog extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class DialogHeader extends StatelessWidget {
+  DialogHeader({@required this.title});
+
+  final String title;
+
+  Widget build(context) {
+    return Container(
+      child: Text(
+        title,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 20,
+        ),
+      ),
+      color: Theme.of(context).primaryColor,
+      width: double.infinity,
+      padding: EdgeInsets.all(18),
     );
   }
 }

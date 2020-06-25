@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './my_drawer.dart';
 import './new_todo.dart';
 import './friend_todos.dart';
 
@@ -15,7 +14,7 @@ class MyApp extends StatelessWidget {
         title: 'What Todo',
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
-          primaryColor: Colors.green[900],
+          primaryColor: Colors.indigo[600],
         ),
         home: MyTodos(title: 'My Todo List'),
         routes: {
@@ -32,7 +31,7 @@ class Todo {
 }
 
 class MyTodos extends StatefulWidget {
-  const MyTodos({Key key, this.title}) : super(key: key);
+  const MyTodos({@required this.title});
 
   final String title;
 
@@ -42,23 +41,70 @@ class MyTodos extends StatefulWidget {
 
 class _MyTodosState extends State<MyTodos> {
   List<Todo> _todos = [
-    Todo("Get groceries", true),
-    Todo("Learn about Flutter", false),
+    Todo("Do the dishes", false),
+    Todo("Walk the dog", false),
+    Todo("Water the plants", false),
+    Todo("Buy groceries", false),
   ];
 
-  _toggleDone(newVal, index) {
+  List<Todo> _completeTodos = [
+    Todo("Take out trash", true),
+  ];
+
+  bool showCompleted = true;
+
+  toggleDone(newVal, index) {
     setState(() {
-      _todos[index].isDone = newVal;
+      if (newVal) {
+        Todo item = _todos[index];
+        item.isDone = true;
+        _todos.removeAt(index);
+        _completeTodos.add(item);
+      } else {
+        Todo item = _completeTodos[index];
+        item.isDone = false;
+        _completeTodos.removeAt(index);
+        _todos.add(item);
+      }
     });
   }
 
   _addTodo(context) {
     showDialog(context: context, builder: (_) => new AddTodoDialog())
-        .then((val) => {
-              setState(() {
-                _todos.add(Todo(val, false));
-              })
-            });
+        .then((val) => setState(() {
+              if (val != null) _todos.add(Todo(val, false));
+            }));
+  }
+
+  List<Widget> _todoList() {
+    List<Widget> children = [];
+    for (int i = 0; i < _todos.length; i++) {
+      Todo item = _todos[i];
+      children.add(TodoTile(
+        name: item.name,
+        isDone: item.isDone,
+        index: i,
+        toggle: toggleDone,
+      ));
+    }
+    return children;
+  }
+
+  List<Widget> _completeList() {
+    List<Widget> children = [];
+
+    if (!showCompleted) return children;
+
+    for (int i = 0; i < _completeTodos.length; i++) {
+      Todo item = _completeTodos[i];
+      children.add(TodoTile(
+        name: item.name,
+        isDone: item.isDone,
+        index: i,
+        toggle: toggleDone,
+      ));
+    }
+    return children;
   }
 
   @override
@@ -66,32 +112,83 @@ class _MyTodosState extends State<MyTodos> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () => Navigator.pushNamed(context, "/friends"),
+          ),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _addTodo(context),
+          ),
+        ],
       ),
-      drawer: MyDrawer(),
-      body: ListView.builder(
-          itemCount: _todos.length,
-          itemBuilder: (BuildContext context, int index) {
-            Todo item = _todos[index];
-
-            return ListTile(
-              title: Text(
-                item.name,
-                style: TextStyle(
-                  fontSize: 16,
-                  decoration: item.isDone
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 16),
+            Text("Todos", style: Theme.of(context).textTheme.headline4),
+            SizedBox(height: 10),
+            Column(children: _todoList()),
+            SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text("Completed", style: Theme.of(context).textTheme.headline4),
+                Switch.adaptive(
+                  value: showCompleted,
+                  onChanged: (newVal) => setState(() => showCompleted = newVal),
                 ),
-              ),
-              trailing: Checkbox(
-                  value: item.isDone,
-                  onChanged: (bool newVal) => _toggleDone(newVal, index)),
-            );
-          }),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Theme.of(context).primaryColor,
-        onPressed: () => _addTodo(context),
+              ],
+            ),
+            SizedBox(height: 10),
+            Column(children: _completeList()),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TodoTile extends StatelessWidget {
+  TodoTile({
+    @required this.name,
+    @required this.isDone,
+    @required this.index,
+    @required this.toggle,
+  });
+
+  final String name;
+  final bool isDone;
+  final int index;
+  final Function toggle;
+
+  @override
+  Widget build(context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+          color: isDone ? Colors.grey[300] : Colors.white,
+          border: Border.all(
+            color: isDone ? Colors.grey[300] : Colors.grey[400],
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          )),
+      child: Row(
+        children: [
+          Checkbox(
+            activeColor: Theme.of(context).primaryColor,
+            value: isDone,
+            onChanged: (bool newVal) => toggle(newVal, index),
+          ),
+          Text(
+            name,
+            style: TextStyle(fontSize: 16),
+          ),
+        ],
       ),
     );
   }
