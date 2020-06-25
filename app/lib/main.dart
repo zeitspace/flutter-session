@@ -53,8 +53,6 @@ class _MyTodosState extends State<MyTodos> {
     "Take out trash",
   ];
 
-  bool _showCompleted = true;
-
   void toggleDone(bool newVal, int index) {
     setState(() {
       if (newVal) {
@@ -94,8 +92,6 @@ class _MyTodosState extends State<MyTodos> {
 
   List<Widget> _completeList() {
     List<Widget> children = [];
-
-    if (!_showCompleted) return children;
 
     for (int i = 0; i < _completeTodos.length; i++) {
       String item = _completeTodos[i];
