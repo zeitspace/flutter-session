@@ -5,71 +5,33 @@ class AddTodoDialog extends StatelessWidget {
 
   @override
   Widget build(context) {
-    return Dialog(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          DialogHeader(title: "Add a new todo"),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  decoration: InputDecoration.collapsed(
-                    hintText: 'What do you need to do?',
-                    border: UnderlineInputBorder(),
-                  ),
-                  controller: todoController,
-                ),
-                SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    FlatButton(
-                      child: Text("Cancel"),
-                      textColor: Theme.of(context).primaryColor,
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    SizedBox(width: 8),
-                    RaisedButton(
-                      child: Text("Add"),
-                      color: Theme.of(context).primaryColor,
-                      textColor: Colors.white,
-                      onPressed: () {
-                        Navigator.of(context).pop(todoController.text);
-                      },
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class DialogHeader extends StatelessWidget {
-  DialogHeader({@required this.title});
-
-  final String title;
-
-  Widget build(context) {
-    return Container(
-      child: Text(
-        title,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20,
+    return AlertDialog(
+      title: Text("Add new todo"),
+      content: TextField(
+        autofocus: true,
+        decoration: InputDecoration.collapsed(
+          hintText: 'What do you need to do?',
+          border: UnderlineInputBorder(),
         ),
+        controller: todoController,
       ),
-      color: Theme.of(context).primaryColor,
-      width: double.infinity,
-      padding: EdgeInsets.all(18),
+      actions: [
+        FlatButton(
+          child: Text("Cancel"),
+          textColor: Theme.of(context).primaryColor,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+        RaisedButton(
+          child: Text("Add"),
+          color: Theme.of(context).primaryColor,
+          textColor: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pop(todoController.text);
+          },
+        )
+      ],
     );
   }
 }

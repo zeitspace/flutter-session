@@ -15,19 +15,24 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           visualDensity: VisualDensity.adaptivePlatformDensity,
           primaryColor: Colors.indigo[600],
+          textTheme: TextTheme(
+            headline1: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[800],
+            ),
+            headline2: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
         ),
         home: MyTodos(title: 'My Todo List'),
         routes: {
           '/friends': (context) => FriendTodos(title: "Friends Todos"),
         });
   }
-}
-
-class Todo {
-  Todo(this.name, this.isDone);
-
-  String name;
-  bool isDone;
 }
 
 class MyTodos extends StatefulWidget {
@@ -40,49 +45,49 @@ class MyTodos extends StatefulWidget {
 }
 
 class _MyTodosState extends State<MyTodos> {
-  List<Todo> _todos = [
-    Todo("Do the dishes", false),
-    Todo("Walk the dog", false),
-    Todo("Water the plants", false),
-    Todo("Buy groceries", false),
+  List<String> _todos = [
+    "Do the dishes",
+    "Walk the dog",
+    "Water the plants",
+    "Buy groceries",
   ];
 
-  List<Todo> _completeTodos = [
-    Todo("Take out trash", true),
+  List<String> _completeTodos = [
+    "Take out trash",
   ];
 
-  bool showCompleted = true;
+  bool _showCompleted = true;
 
-  toggleDone(newVal, index) {
+  void toggleDone(bool newVal, int index) {
     setState(() {
       if (newVal) {
-        Todo item = _todos[index];
-        item.isDone = true;
+        String item = _todos[index];
         _todos.removeAt(index);
         _completeTodos.add(item);
       } else {
-        Todo item = _completeTodos[index];
-        item.isDone = false;
+        String item = _completeTodos[index];
         _completeTodos.removeAt(index);
         _todos.add(item);
       }
     });
   }
 
-  _addTodo(context) {
-    showDialog(context: context, builder: (_) => new AddTodoDialog())
-        .then((val) => setState(() {
-              if (val != null) _todos.add(Todo(val, false));
-            }));
+  void _addTodo(BuildContext context) async {
+    String newTodo = await showDialog(
+      context: context,
+      builder: (context) => new AddTodoDialog(),
+    );
+
+    if (newTodo != null) setState(() => _todos.add(newTodo));
   }
 
   List<Widget> _todoList() {
     List<Widget> children = [];
     for (int i = 0; i < _todos.length; i++) {
-      Todo item = _todos[i];
+      String item = _todos[i];
       children.add(TodoTile(
-        name: item.name,
-        isDone: item.isDone,
+        name: item,
+        isDone: false,
         index: i,
         toggle: toggleDone,
       ));
@@ -93,13 +98,13 @@ class _MyTodosState extends State<MyTodos> {
   List<Widget> _completeList() {
     List<Widget> children = [];
 
-    if (!showCompleted) return children;
+    if (!_showCompleted) return children;
 
     for (int i = 0; i < _completeTodos.length; i++) {
-      Todo item = _completeTodos[i];
+      String item = _completeTodos[i];
       children.add(TodoTile(
-        name: item.name,
-        isDone: item.isDone,
+        name: item,
+        isDone: true,
         index: i,
         toggle: toggleDone,
       ));
@@ -129,17 +134,24 @@ class _MyTodosState extends State<MyTodos> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: 16),
-            Text("Todos", style: Theme.of(context).textTheme.headline4),
+            Text("Todos", style: Theme.of(context).textTheme.headline1),
             SizedBox(height: 10),
             Column(children: _todoList()),
             SizedBox(height: 10),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Completed", style: Theme.of(context).textTheme.headline4),
+                Text("Completed",
+                    style: _showCompleted
+                        ? Theme.of(context).textTheme.headline1
+                        : Theme.of(context)
+                            .textTheme
+                            .headline1
+                            .copyWith(color: Colors.grey[400])),
                 Switch.adaptive(
-                  value: showCompleted,
-                  onChanged: (newVal) => setState(() => showCompleted = newVal),
+                  value: _showCompleted,
+                  onChanged: (newVal) =>
+                      setState(() => _showCompleted = newVal),
                 ),
               ],
             ),
@@ -166,7 +178,7 @@ class TodoTile extends StatelessWidget {
   final Function toggle;
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(

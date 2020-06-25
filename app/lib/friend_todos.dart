@@ -33,10 +33,12 @@ class _FriendTodosState extends State<FriendTodos> {
           if (snapshot.hasData) {
             var friends = snapshot.data;
             return ListView.separated(
+              padding: EdgeInsets.symmetric(horizontal: 16),
               itemBuilder: (context, index) {
-                return FriendWidget(friend: friends[index]);
+                return FriendWidget(friends[index]);
               },
-              separatorBuilder: (context, index) => Divider(),
+              separatorBuilder: (context, index) =>
+                  Divider(color: Colors.grey[700]),
               itemCount: friends.length,
             );
           } else if (snapshot.hasError) {
@@ -51,11 +53,11 @@ class _FriendTodosState extends State<FriendTodos> {
 }
 
 class FriendWidget extends StatelessWidget {
-  FriendWidget({@required this.friend});
+  FriendWidget(this.friend);
 
   final friend;
 
-  _todoList() {
+  List<Widget> _todoList() {
     List<Widget> children = [];
 
     for (int i = 0; i < friend['todos'].length; i++) {
@@ -84,7 +86,7 @@ class FriendWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(friend['name'], style: Theme.of(context).textTheme.headline6),
+          Text(friend['name'], style: Theme.of(context).textTheme.headline2),
           Column(children: _todoList()),
         ],
       ),
