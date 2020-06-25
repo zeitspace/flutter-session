@@ -91,15 +91,13 @@ Checkpoint branch: `step5`
 
 ### Step 6: Get data through HTTP
 
-Checkpoint branch: `step6`
+Checkpoint branch: `master`
 
 - Add http package to Flutter
 - Use it to request and wait for JSON data
 - Build friends todos page (static)
 
 ### Step 7: Done
-
-Checkpoint branch: `step7`
 
 That's it! Congrats on building a fully functional Flutter app that works on both Android and iOS.
 
