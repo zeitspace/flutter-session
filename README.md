@@ -45,9 +45,9 @@ Let's learn about Flutter by building a to do app.
 
 ### Step 0: Starter App (Start Here)
 
-Checkpoint branch: `step0`
+Checkpoint branch: `main`
 
-- Inital code for the app
+- Initial code for the app
 
 ### Step 1: Start layout and show a list
 
@@ -98,8 +98,6 @@ Checkpoint branch: `step6`
 - Build friends todos page (static)
 
 ### Step 7: Done
-
-Checkpoint branch: `step7`
 
 That's it! Congrats on building a fully functional Flutter app that works on both Android and iOS.
 
