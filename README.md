@@ -91,7 +91,7 @@ Checkpoint branch: `step5`
 
 ### Step 6: Get data through HTTP
 
-Checkpoint branch: `master`
+Checkpoint branch: `step6`
 
 - Add http package to Flutter
 - Use it to request and wait for JSON data
