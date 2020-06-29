@@ -2,6 +2,39 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+class Todo {
+  String name;
+  bool isDone;
+
+  Todo(this.name, this.isDone);
+
+  factory Todo.fromJson(Map<String, dynamic> json) {
+    return Todo(json['name'], json['isDone']);
+  }
+}
+
+class Friend {
+  String name;
+  List<Todo> todos;
+
+  Friend({@required this.name, this.todos});
+
+  factory Friend.fromJson(Map<String, dynamic> json) {
+    List<Todo> todos = [];
+
+    for (int i = 0; i < json['todos'].length; i++) {
+      todos.add(
+        Todo.fromJson(json['todos'][i]),
+      );
+    }
+
+    return Friend(
+      name: json['name'],
+      todos: todos,
+    );
+  }
+}
+
 class FriendTodos extends StatefulWidget {
   FriendTodos({@required this.title});
   final String title;
@@ -12,10 +45,17 @@ class FriendTodos extends StatefulWidget {
 
 class _FriendTodosState extends State<FriendTodos> {
   Future<dynamic> _getFriendData() async {
-    var response = await http.get(
+    var res = await http.get(
       "https://s3.amazonaws.com/zeitspace.com/media/2020/06/friend-todos.json",
     );
-    var friends = jsonDecode(response.body);
+
+    List<dynamic> resJson = jsonDecode(res.body);
+
+    List<Friend> friends = [];
+
+    for (int i = 0; i < resJson.length; i++) {
+      friends.add(Friend.fromJson(resJson[i]));
+    }
 
     return friends;
   }
@@ -59,16 +99,16 @@ class FriendWidget extends StatelessWidget {
   List<Widget> _todoList() {
     List<Widget> children = [];
 
-    for (int i = 0; i < friend['todos'].length; i++) {
-      var todo = friend['todos'][i];
+    for (int i = 0; i < friend.todos.length; i++) {
+      var todo = friend.todos[i];
       children.add(Row(
         children: [
           Icon(Icons.lens, size: 6),
           SizedBox(width: 6),
           Text(
-            todo['name'],
+            todo.name,
             style: TextStyle(
-              decoration: todo["isDone"]
+              decoration: todo.isDone
                   ? TextDecoration.lineThrough
                   : TextDecoration.none,
             ),
@@ -85,7 +125,7 @@ class FriendWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(friend['name'], style: Theme.of(context).textTheme.headline2),
+          Text(friend.name, style: Theme.of(context).textTheme.headline2),
           Column(children: _todoList()),
         ],
       ),
