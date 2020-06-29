@@ -151,6 +151,7 @@ class TodoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: UniqueKey(),
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           color: isDone ? Colors.grey[300] : Colors.white,
