@@ -41,6 +41,8 @@ Let's learn about Flutter by building a to do app.
 
 Before you start, checkout branch: `main` if you are not on that branch already.
 
+At the start of this step if you try to run the app you should only see a black screen.
+
 What we'll do:
 - Create the base app layout
 - Store the todos in a data structure
