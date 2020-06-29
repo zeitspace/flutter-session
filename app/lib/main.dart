@@ -54,17 +54,15 @@ class _MyTodosState extends State<MyTodos> {
   ];
 
   void toggleDone(bool newVal, int index) {
-    setState(() {
-      if (newVal) {
-        String item = _todos[index];
-        _todos.removeAt(index);
-        _completeTodos.add(item);
-      } else {
-        String item = _completeTodos[index];
-        _completeTodos.removeAt(index);
-        _todos.add(item);
-      }
-    });
+    if (newVal) {
+      String item = _todos[index];
+      _todos.removeAt(index);
+      setState(() => _completeTodos.add(item));
+    } else {
+      String item = _completeTodos[index];
+      _completeTodos.removeAt(index);
+      setState(() => _todos.add(item));
+    }
   }
 
   void _addTodo(BuildContext context) async {
