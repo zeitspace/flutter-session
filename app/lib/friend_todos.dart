@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 class FriendTodos extends StatefulWidget {
   FriendTodos({@required this.title});
@@ -12,10 +12,9 @@ class FriendTodos extends StatefulWidget {
 
 class _FriendTodosState extends State<FriendTodos> {
   Future<dynamic> _getFriendData() async {
-    var response = await get(
+    var response = await http.get(
       "https://s3.amazonaws.com/zeitspace.com/media/2020/06/friend-todos.json",
     );
-
     var friends = jsonDecode(response.body);
 
     return friends;

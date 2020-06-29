@@ -59,29 +59,27 @@ class _MyTodosState extends State<MyTodos> {
   bool _showCompleted = true;
 
   void toggleDone(BuildContext context, bool newVal, int index) {
-    setState(() {
-      if (newVal) {
-        String item = _todos[index];
-        _todos.removeAt(index);
-        _completeTodos.add(item);
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Completed \"$item\""),
-            duration: Duration(seconds: 1),
-          ),
-        );
-      } else {
-        String item = _completeTodos[index];
-        _completeTodos.removeAt(index);
-        _todos.add(item);
-        Scaffold.of(context).showSnackBar(
-          SnackBar(
-            content: Text("Set \"$item\" to todo"),
-            duration: Duration(seconds: 1),
-          ),
-        );
-      }
-    });
+    if (newVal) {
+      String item = _todos[index];
+      _todos.removeAt(index);
+      setState(() => _completeTodos.add(item));
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Completed \"$item\""),
+          duration: Duration(seconds: 1),
+        ),
+      );
+    } else {
+      String item = _completeTodos[index];
+      _completeTodos.removeAt(index);
+      setState(() => _todos.add(item));
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Set \"$item\" to todo"),
+          duration: Duration(seconds: 1),
+        ),
+      );
+    }
   }
 
   void _addTodo(BuildContext context) async {
@@ -192,6 +190,7 @@ class TodoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      key: UniqueKey(),
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
           color: isDone ? Colors.grey[300] : Colors.white,
