@@ -46,7 +46,7 @@ class FriendTodos extends StatefulWidget {
 class _FriendTodosState extends State<FriendTodos> {
   Future<dynamic> _getFriendData() async {
     var res = await http.get(
-      "https://s3.amazonaws.com/zeitspace.com/media/2020/06/friend-todos.json",
+      "https://session-files.s3.amazonaws.com/flutter/friend-todos.json",
     );
 
     List<dynamic> resJson = jsonDecode(res.body);
