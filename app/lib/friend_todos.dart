@@ -22,9 +22,9 @@ class Friend {
   factory Friend.fromJson(Map<String, dynamic> json) {
     List<Todo> todos = [];
 
-    for (int i = 0; i < json['todos'].length; i++) {
+    for (var todo in json['todos']) {
       todos.add(
-        Todo.fromJson(json['todos'][i]),
+        Todo.fromJson(todo),
       );
     }
 
@@ -99,8 +99,7 @@ class FriendWidget extends StatelessWidget {
   List<Widget> _todoList() {
     List<Widget> children = [];
 
-    for (int i = 0; i < friend.todos.length; i++) {
-      var todo = friend.todos[i];
+    for (Todo todo in friend.todos) {
       children.add(Row(
         children: [
           Icon(Icons.lens, size: 6),

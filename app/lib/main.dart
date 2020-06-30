@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './new_todo.dart';
+import './add_todos.dart';
 import './friend_todos.dart';
 
 void main() {
@@ -63,22 +63,10 @@ class _MyTodosState extends State<MyTodos> {
       String item = _todos[index];
       _todos.removeAt(index);
       setState(() => _completeTodos.add(item));
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Completed \"$item\""),
-          duration: Duration(seconds: 1),
-        ),
-      );
     } else {
       String item = _completeTodos[index];
       _completeTodos.removeAt(index);
       setState(() => _todos.add(item));
-      Scaffold.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Set \"$item\" to todo"),
-          duration: Duration(seconds: 1),
-        ),
-      );
     }
   }
 
@@ -148,22 +136,14 @@ class _MyTodosState extends State<MyTodos> {
             SizedBox(height: 10),
             Column(children: _todoList()),
             SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Completed",
-                    style: _showCompleted
-                        ? Theme.of(context).textTheme.headline1
-                        : Theme.of(context)
-                            .textTheme
-                            .headline1
-                            .copyWith(color: Colors.grey[400])),
-                Switch.adaptive(
-                  value: _showCompleted,
-                  onChanged: (newVal) =>
-                      setState(() => _showCompleted = newVal),
-                ),
-              ],
+            Text(
+              "Completed",
+              style: _showCompleted
+                  ? Theme.of(context).textTheme.headline1
+                  : Theme.of(context)
+                      .textTheme
+                      .headline1
+                      .copyWith(color: Colors.grey[400]),
             ),
             SizedBox(height: 10),
             Column(children: _completeList()),
