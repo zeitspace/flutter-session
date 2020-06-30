@@ -2,8 +2,6 @@
 
 Welcome to the Zeitspace Session! First, let's make sure you're all set up.
 
-If you didn't attend the session in person, no problem. You may want to read the slide deck (TODO: add link) for a bit of background, but it isn't required.
-
 ## Setup
 
 ### Install Flutter and run the starter app
@@ -35,52 +33,49 @@ If you run into a problem and want to catch up during the session, you can switc
 - [Switch branch using Github Desktop](https://help.github.com/en/desktop/contributing-to-projects/switching-between-branches)
 - Use the command line: `git checkout <branch>`
 
-## Activity 1: Hello World
-
-TODO: fill in instructions for completing the Hello World app
-
-## Activity 2: To Do App
+## Activity: Let's build a todo app
 
 Let's learn about Flutter by building a to do app.
 
-### Step 0: Starter App (Start Here)
-
-Checkpoint branch: `main`
-
-- Initial code for the app
-
 ### Step 1: Start layout and show a list
 
-Checkpoint branch: `step1`
+Before you start, checkout branch: `main` if you are not on that branch already.
 
+At the start of this step if you try to run the app you should only see a black screen.
+
+What we'll do:
+
+- Create the base app layout
 - Store the todos in a data structure
-- For now, prefill with some hardcoded todos
-- Build the Todo item list without checkbox (not completed ones)
+- Display todos in a simple list
+
+To catch up to the end of step 1, checkout branch: `step1`
 
 ### Step 2: Add a new to do
 
-Checkpoint branch: `step2`
+What we'll do:
 
-- Add "add todo" button in app bar
-- Build dialog
-- Add item to list
+- Add an "Add" button in the app bar
+- Build the dialog
+- Show the new todo item to the list
+
+To catch up to the end of step 2, checkout branch: `step2`
 
 ### Step 3: Mark as done
 
-Checkpoint branch: `step3`
+What we'll do:
 
+- Customize the style of todo items
 - Add checkbox
-- Add Completed list below
-- When checked -> move to completed
-- When unchecked -> move to active todos list
+- Add Completed list
+- Move todo item between Todos and Completed list when checked / unchecked
 
 ### Step 4: Get data through HTTP
 
-Checkpoint branch: `step4`
-
 - Add http package to Flutter
 - Use it to request and wait for JSON data
-- Build friends todos page (static)
+- Add Friends' todos page and display data there
+- Navigate to and from the new Friends page
 
 ### Step 5: Done
 
