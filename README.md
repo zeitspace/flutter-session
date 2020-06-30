@@ -74,30 +74,15 @@ Checkpoint branch: `step3`
 - When checked -> move to completed
 - When unchecked -> move to active todos list
 
-### Step 4: Show snackbar feedback
+### Step 4: Get data through HTTP
 
 Checkpoint branch: `step4`
-
-- Show a message using the snackbar component
-- Feedback for item marked as done
-- Feedback also for item moved back to active "marked as todo"
-
-### Step 5: Show / hide completed to dos
-
-Checkpoint branch: `step5`
-
-- Add adaptive switch (changes iOS / Android style)
-- Show / hide the completed items list when toggled
-
-### Step 6: Get data through HTTP
-
-Checkpoint branch: `step6`
 
 - Add http package to Flutter
 - Use it to request and wait for JSON data
 - Build friends todos page (static)
 
-### Step 7: Done
+### Step 5: Done
 
 That's it! Congrats on building a fully functional Flutter app that works on both Android and iOS.
 
