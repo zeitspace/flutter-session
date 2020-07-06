@@ -35,7 +35,7 @@ If you run into a problem and want to catch up during the session, you can switc
 
 ## Activity: Let's build a todo app
 
-Let's learn about Flutter by building a to do app. 
+Let's learn about Flutter by building a to do app.
 
 ### Step 1: Start layout and show a list
 
@@ -44,6 +44,7 @@ Before you start, checkout branch: `main` if you are not on that branch already.
 At the start of this step if you try to run the app you should only see a black screen.
 
 What we'll do:
+
 - Create the base app layout
 - Store the todos in a data structure
 - Display todos in a simple list
@@ -53,6 +54,7 @@ To catch up to the end of step 1, checkout branch: `step1`
 ### Step 2: Add a new to do
 
 What we'll do:
+
 - Add an "Add" button in the app bar
 - Build the dialog
 - Show the new todo item to the list
@@ -62,6 +64,7 @@ To catch up to the end of step 2, checkout branch: `step2`
 ### Step 3: Mark as done
 
 What we'll do:
+
 - Customize the style of todo items
 - Add checkbox
 - Add Completed list
@@ -69,31 +72,16 @@ What we'll do:
 
 To catch up to the end of step 3, checkout branch: `step3`
 
-### Step 4: Show confirmation message
+### Step 4: Get data through HTTP
 
-What we'll do:
-- Show a message when a todo is completed (using the Snackbar widget)
-- Show a message when a completed todo is moved back to active todos
-
-To catch up to the end of step 4, checkout branch: `step4`
-
-### Step 5: Show / hide completed to dos
-
-What we'll do:
-- Add Switch widget (which adapts to iOS / Android style)
-- Show / hide the completed items list when toggled
-
-To catch up to the end of step 5, checkout branch: `step5`
-
-### Step 6: Show friends' todos
-
-What we'll do:
-- Add the `http` package to our project
+- Add http package to Flutter
 - Use it to request and wait for JSON data
 - Add Friends' todos page and display data there
 - Navigate to and from the new Friends page
 
-To catch up to the end of step 6, checkout branch: `step6`
+To catch up to the end of step 4, checkout branch: `step4`
+
+### Step 5: Done
 
 That's it! Congrats on building a fully functional Flutter app that works on both Android and iOS.
 
