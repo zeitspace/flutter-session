@@ -70,12 +70,16 @@ What we'll do:
 - Add Completed list
 - Move todo item between Todos and Completed list when checked / unchecked
 
+To catch up to the end of step 3, checkout branch: `step3`
+
 ### Step 4: Get data through HTTP
 
 - Add http package to Flutter
 - Use it to request and wait for JSON data
 - Add Friends' todos page and display data there
 - Navigate to and from the new Friends page
+
+To catch up to the end of step 4, checkout branch: `step4`
 
 ### Step 5: Done
 
